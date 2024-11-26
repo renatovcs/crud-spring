@@ -3,6 +3,9 @@ package com.renatovcs.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -40,7 +43,7 @@ public class Entry {
     
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime evenDate = LocalDateTime.now();
+    private LocalDateTime eventDate = LocalDateTime.now();
 
 }
 

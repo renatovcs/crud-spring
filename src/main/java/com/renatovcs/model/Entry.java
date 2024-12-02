@@ -19,10 +19,12 @@ import lombok.Data;
 
 @Data
 @Entity
+
 public class Entry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("_id")
     private Long id;
 
     @Column(length = 250, nullable = false)

@@ -3,7 +3,6 @@ package com.renatovcs.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -47,5 +46,14 @@ public class Entry {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime eventDate = LocalDateTime.now();
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime deletedAt;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime updatedAt;
 }
 

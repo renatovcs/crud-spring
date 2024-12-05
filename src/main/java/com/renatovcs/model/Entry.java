@@ -32,6 +32,12 @@ public class Entry {
     @Column(length = 200, nullable = false)
     private String category;
 
+    @Column(length = 50)
+    private String invoiceAccessKey;
+
+    @Column(length = 50)
+    private String company;
+
     @Column(nullable = false, precision = 15, scale = 2) 
     private BigDecimal amount;
 

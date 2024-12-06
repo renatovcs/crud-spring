@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,12 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.renatovcs.model.Entry;
 import com.renatovcs.repository.EntryRepository;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+@Validated
 @RestController
 @RequestMapping("/api/entries")
 @AllArgsConstructor
@@ -34,20 +38,20 @@ public class EntryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Entry> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<Entry> findById(@PathVariable("id") @NotNull @Positive Long id) {
         return entryRepository.findById(id)
             .map(data -> ResponseEntity.ok().body(data))
             .orElse(ResponseEntity.notFound().build());
     }
     
     @PostMapping()
-    public ResponseEntity<Entry> create(@RequestBody Entry entry) {
+    public ResponseEntity<Entry> create(@RequestBody @Valid Entry entry) {
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(entryRepository.save(entry));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Entry> update(@PathVariable Long id, @RequestBody Entry entry) {
+    public ResponseEntity<Entry> update(@PathVariable Long id, @RequestBody @Valid Entry entry) {
         return entryRepository.findById(id)
             .map(data -> {
                 data.setAmount(entry.getAmount());

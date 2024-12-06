@@ -3,6 +3,8 @@ package com.renatovcs.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -14,6 +16,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
@@ -26,6 +31,9 @@ public class Entry {
     @JsonProperty("_id")
     private Long id;
 
+    @NotBlank
+    @NotNull
+    @Length(min = 5, max = 200)
     @Column(length = 250, nullable = false)
     private String description;
 
@@ -38,6 +46,7 @@ public class Entry {
     @Column(length = 50)
     private String company;
 
+    @Positive
     @Column(nullable = false, precision = 15, scale = 2) 
     private BigDecimal amount;
 

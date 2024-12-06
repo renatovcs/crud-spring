@@ -37,7 +37,7 @@ public class Entry {
     @Column(length = 250, nullable = false)
     private String description;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 50, nullable = false)
     private String category;
 
     @Column(length = 50)

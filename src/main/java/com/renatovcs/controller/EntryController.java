@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.renatovcs.model.Entry;
 import com.renatovcs.repository.EntryRepository;
+import com.renatovcs.service.EntryService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,15 +26,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Validated
 @RestController
 @RequestMapping("/api/entries")
-@AllArgsConstructor
 public class EntryController {
 
     private final EntryRepository entryRepository;
+    private final EntryService entryService;
+
+    public EntryController(EntryRepository entryRepository, EntryService entryService) {
+        this.entryRepository = entryRepository;
+        this.entryService = entryService;
+    }
     
     @GetMapping
     public List<Entry> list() {
-        //return entryRepository.findAll()
-        return entryRepository.findByDeletedAtIsNull();
+        return entryService.list();
     }
 
     @GetMapping("/{id}")
